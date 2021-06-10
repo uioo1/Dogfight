@@ -24,6 +24,7 @@ public class PlaneControl : MonoBehaviour
     float horizon_input;
     bool isExploded = false;
     bool isFliped = false;
+    bool isNotSeen = false;
     bool waitShoot = false;
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,29 @@ public class PlaneControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(transform.position.x <= -10f || transform.position.y >= 5.5f)
+        {
+            if(isNotSeen == false)
+            {
+                isFliped = !isFliped;
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            }
+            isNotSeen = true;            
+        }
+        else if(transform.position.x >= 10f)
+        {
+            if(isNotSeen == false)
+            {
+                isFliped = !isFliped;
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            }
+            isNotSeen = true;
+        }
+        else
+        {
+            isNotSeen = false;
+        }
+
         horizon_input = Input.GetAxis("Horizontal");
         if(Input.GetButton("Fire1") && !waitShoot)
         {
@@ -61,7 +85,15 @@ public class PlaneControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb2d.velocity = sprite.transform.right * speed;
+        if(!isFliped)
+        {
+            rb2d.velocity = sprite.transform.right * speed;
+        }
+        else
+        {
+            rb2d.velocity = sprite.transform.right * speed * -1f;
+        }
+        //rb2d.velocity = sprite.transform.right * speed;
         if(planeHealth > 0)
         {            
             Vector3 direction = new Vector3(0, 0, horizon_input);
@@ -90,8 +122,19 @@ public class PlaneControl : MonoBehaviour
 
     void Shooting()
     {
-        GameObject bullet = Instantiate(bullet_prefab, gunPoint.transform.position, gunPoint.transform.rotation);
-        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        GameObject bullet;
+        Bullet bulletScript;
+        if(!isFliped)
+        {
+            bullet = Instantiate(bullet_prefab, gunPoint.transform.position, gunPoint.transform.rotation);
+            bulletScript = bullet.GetComponent<Bullet>();
+        }
+        else
+        {
+            bullet = Instantiate(bullet_prefab, gunPoint.transform.position, gunPoint.transform.rotation);
+            bulletScript = bullet.GetComponent<Bullet>();
+            bulletScript.isFliped = true;
+        }
         int i = Random.Range(0,3);
         if(i == 0)
             audioManager.Play("gun1_01");

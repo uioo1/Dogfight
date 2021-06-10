@@ -10,7 +10,8 @@ public class Client : MonoBehaviour
     public static Client instance;
     public static int dataBuffersize = 4096;
 
-    public string ip = "127.0.0.1";
+    //public string ip = "127.0.0.1";
+    public string ip = "59.17.44.84";
     public int prot = 4080;
     public int myId = 0;
     public TCP tcp;
@@ -108,7 +109,7 @@ public class Client : MonoBehaviour
             }
             catch (Exception _ex)
             {
-                Console.WriteLine($"Error receiving TCP data: {_ex}");
+                Debug.Log($"Error receiving TCP data: {_ex}");
                 // todo: diconnect
             }
         }

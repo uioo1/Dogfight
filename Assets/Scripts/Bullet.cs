@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public bool isFliped = false;
     public float bulletSpeed = 20f;
 
     [HideInInspector]
@@ -32,7 +33,14 @@ public class Bullet : MonoBehaviour
     private void FixedUpdate()
     {
         //rb2d.velocity = sprite.transform.right * bulletSpeed;
-        rb2d.velocity = rand_vec * bulletSpeed;
+        if(!isFliped)
+        {
+            rb2d.velocity = rand_vec * bulletSpeed;
+        }
+        else
+        {            
+            rb2d.velocity = rand_vec * bulletSpeed * -1f;
+        }        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
