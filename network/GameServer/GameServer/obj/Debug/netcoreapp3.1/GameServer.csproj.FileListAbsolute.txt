@@ -1,0 +1,13 @@
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\bin\Debug\netcoreapp3.1\GameServer.exe
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\bin\Debug\netcoreapp3.1\GameServer.deps.json
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\bin\Debug\netcoreapp3.1\GameServer.runtimeconfig.json
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\bin\Debug\netcoreapp3.1\GameServer.runtimeconfig.dev.json
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\bin\Debug\netcoreapp3.1\GameServer.dll
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\bin\Debug\netcoreapp3.1\GameServer.pdb
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\obj\Debug\netcoreapp3.1\GameServer.csprojAssemblyReference.cache
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\obj\Debug\netcoreapp3.1\GameServer.AssemblyInfoInputs.cache
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\obj\Debug\netcoreapp3.1\GameServer.AssemblyInfo.cs
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\obj\Debug\netcoreapp3.1\GameServer.csproj.CoreCompileInputs.cache
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\obj\Debug\netcoreapp3.1\GameServer.dll
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\obj\Debug\netcoreapp3.1\GameServer.pdb
+C:\Users\There\Desktop\dogfight\network\GameServer\GameServer\obj\Debug\netcoreapp3.1\GameServer.genruntimeconfig.cache

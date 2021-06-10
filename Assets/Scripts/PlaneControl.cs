@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,13 +12,18 @@ public class PlaneControl : MonoBehaviour
     public GameObject bullet_prefab;
     public GameObject gunPoint;
     public GameObject smoke_obj;
+    public GameObject explode_child;
+    public GameObject explode_prefab;
     Smoke smoke;
 
     public int planeHealth;
     public float speed;
     public float rotationSpeed;
+    public float lowerRotationSpeed;
     float angle = 0;
     float horizon_input;
+    bool isExploded = false;
+    bool isFliped = false;
     bool waitShoot = false;
     // Start is called before the first frame update
     void Start()
@@ -41,27 +46,45 @@ public class PlaneControl : MonoBehaviour
         if(planeHealth <= 5)
         {
             smoke_obj.SetActive(true);
+            if(planeHealth <= 0)
+            {
+                if(!isExploded)
+                {
+                    isExploded = true;
+                    explode_child.SetActive(true);
+                    audioManager.Play("explosion_plane");                    
+                }
+                
+            }
         }
     }
 
     void FixedUpdate()
     {
         rb2d.velocity = sprite.transform.right * speed;
+        if(planeHealth > 0)
+        {            
+            Vector3 direction = new Vector3(0, 0, horizon_input);
+            if (direction != Vector3.zero && planeHealth > 0)
+            {
+                //Debug.Log("Input:" + horizon_input);
+                //float angle = Mathf.Atan2(rb2d.velocity.x, rb2d.velocity.y) * Mathf.Rad2Deg;
 
-        Vector3 direction = new Vector3(0, 0, horizon_input);
+                angle -= horizon_input * 5;
 
-        if (direction != Vector3.zero)
+                // 즉시 회전
+                //transform.rotation = Quaternion.Euler(0, 0, angle);
+                transform.rotation = Quaternion.Slerp(transform.rotation, 
+                                            Quaternion.Euler(0, 0, angle), 
+                                            rotationSpeed * Time.fixedDeltaTime);
+            }
+        }
+        else if(planeHealth <= 0)
         {
-            //Debug.Log("Input:" + horizon_input);
-            //float angle = Mathf.Atan2(rb2d.velocity.x, rb2d.velocity.y) * Mathf.Rad2Deg;
-
-            angle -= horizon_input * 5;
-
-            // 즉시 회전
-            //transform.rotation = Quaternion.Euler(0, 0, angle);
-
-            // 부드러운 회전 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, angle), rotationSpeed * Time.fixedDeltaTime);      
+            transform.rotation = Quaternion.Slerp(transform.rotation, 
+                                        Quaternion.Euler(0, 0, -85f), 
+                                        Time.fixedDeltaTime);
+            rb2d.gravityScale = 1f;
         }
     }
 
@@ -87,7 +110,25 @@ public class PlaneControl : MonoBehaviour
     }
 
     public void Hited()
-    {
+    {        
         planeHealth--;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Ground")
+        {
+            GameObject explosion = Instantiate(explode_prefab, transform.position, Quaternion.identity);
+            audioManager.Play("explosion_ground");
+            Destroy(explosion, 3f);
+            Destroy(gameObject);
+        }
+        else if(other.tag == "Plane")
+        {
+            GameObject explosion = Instantiate(explode_prefab, transform.position, Quaternion.identity);
+            audioManager.Play("explosion_ground");
+            Destroy(explosion, 3f);
+            Destroy(gameObject);   
+        }
     }
 }
