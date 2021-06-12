@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class BtnType : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public ButtonType curType;
-    public Transform buttonScale;
     Vector3 defaultScale;
     public CanvasGroup mainGroup;
     public CanvasGroup optionGroup;
@@ -16,7 +15,7 @@ public class BtnType : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Start()
     {
-        defaultScale = buttonScale.localScale;
+        defaultScale = transform.parent.localScale;
     }
     public void OnBtnClick()
     {
@@ -72,11 +71,11 @@ public class BtnType : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        buttonScale.localScale = defaultScale * 1.1f;
+        transform.parent.localScale = defaultScale * 1.1f;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        buttonScale.localScale = defaultScale;
+        transform.parent.localScale = defaultScale;
     }
 }
