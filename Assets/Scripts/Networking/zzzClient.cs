@@ -30,6 +30,7 @@ public class zzzClient : MonoBehaviour
     public InputField inputRoomName;
     public InputField inputRoomPass;
     public InputField inputRoomPort;
+    public InputField inputPass;
     IPEndPoint ipep;
     Socket serv;
     byte[] buffer = new byte[1025];
@@ -90,21 +91,28 @@ public class zzzClient : MonoBehaviour
         sendPacket((char)3, data);
     }
 
+    public void accessRoom(int index){
+        if(inputPass.text.Length == 0)
+            sendPacket((char)4,  index + "\\" + "0");
+        else
+            sendPacket((char)4, index + "\\" + inputPass.text);
+    }
+
     public void sendPacket(char cmd, string data){
-        packet temp = new packet();
-        temp.cmd = cmd;
-        temp.data = data;
-        int a = temp.data.Length;
+        Encoding euckr = Encoding.UTF8;
 
         byte[] bytes = new byte[1025];
         int position = 0;
-        Buffer.BlockCopy(BitConverter.GetBytes(temp.cmd), 0, bytes, position, sizeof(char));
+
+        byte[] sbuff = euckr.GetBytes(data);
+
+        Buffer.BlockCopy(BitConverter.GetBytes(cmd), 0, bytes, position, sizeof(char));
         position = 1;
-        for(int i = 0; i < a; i++){
-            if(a == 1023){
+        for(int i = 0; i < sbuff.Length; i++){
+            if(i == 1023){
                 break;
             }
-            bytes[position + i] = (byte)temp.data[i];
+            bytes[position + i] = (byte)sbuff[i];
         }
 
         serv.Send(bytes);

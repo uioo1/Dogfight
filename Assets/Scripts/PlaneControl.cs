@@ -23,7 +23,7 @@ public class PlaneControl : MonoBehaviour
     float angle = 0;
     float horizon_input;
     bool isExploded = false;
-    bool isFliped = false;
+    public bool isFliped = false;
     bool isNotSeen = false;
     bool waitShoot = false;
     // Start is called before the first frame update
@@ -126,12 +126,12 @@ public class PlaneControl : MonoBehaviour
         Bullet bulletScript;
         if(!isFliped)
         {
-            bullet = Instantiate(bullet_prefab, gunPoint.transform.position, gunPoint.transform.rotation);
+            bullet = Instantiate(bullet_prefab, gunPoint.transform.position, gunPoint.transform.rotation, gameObject.transform.parent);
             bulletScript = bullet.GetComponent<Bullet>();
         }
         else
         {
-            bullet = Instantiate(bullet_prefab, gunPoint.transform.position, gunPoint.transform.rotation);
+            bullet = Instantiate(bullet_prefab, gunPoint.transform.position, gunPoint.transform.rotation, gameObject.transform.parent);
             bulletScript = bullet.GetComponent<Bullet>();
             bulletScript.isFliped = true;
         }
