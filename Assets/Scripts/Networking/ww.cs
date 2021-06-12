@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ww : MonoBehaviour
 {
@@ -57,16 +58,25 @@ public class ww : MonoBehaviour
             case CMD_RECV_ROOM :
                 string[] a = d.data.Split('\\');
 
-                GameObject gameObject = Instantiate(label, content.transform);
-                gameObject.GetComponent<RoomLabel>().isLocked = int.Parse(a[1]);
-                gameObject.GetComponent<RoomLabel>().index = int.Parse(a[0]);
+                GameObject gg = Instantiate(label, content.transform);
+                gg.GetComponent<RoomLabel>().isLocked = int.Parse(a[1]);
+                gg.GetComponent<RoomLabel>().index = int.Parse(a[0]);
 
-                gameObject.GetComponent<RoomLabel>().indexText.text = a[0];
-                gameObject.GetComponent<RoomLabel>().lockText.text = a[1];
-                gameObject.GetComponent<RoomLabel>().nameText.text = a[2];
-                gameObject.GetComponent<RoomLabel>().statusText.text = a[3];
+                gg.GetComponent<RoomLabel>().indexText.text = a[0];
+                gg.GetComponent<RoomLabel>().lockText.text = a[1];
+                gg.GetComponent<RoomLabel>().nameText.text = a[2];
+                gg.GetComponent<RoomLabel>().statusText.text = a[3];
             break;
 
+            case CMD_ACCE_ROOM :
+                string[] b = d.data.Split('\\');
+                gameObject.GetComponent<zzzUDPClient>().ip = b[0];
+                gameObject.GetComponent<zzzUDPClient>().port = int.Parse(b[1]);
+
+                gameObject.GetComponent<zzzUDPClient>().openClient();
+                SceneManager.LoadScene("MainScene");
+
+            break;
             default:
             break;
         }
