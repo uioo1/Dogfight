@@ -19,8 +19,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        sprite = GetComponent<SpriteRenderer>();
-        Destroy(gameObject, 2f);
+        sprite = GetComponent<SpriteRenderer>();        
         rand_vec = new Vector3(sprite.transform.right.x + Random.Range(-bullet_dispersion, bullet_dispersion), 
                     sprite.transform.right.y + Random.Range(-bullet_dispersion, bullet_dispersion), 0);
     }
@@ -29,6 +28,25 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnCreated(bool planeFlip)
+    {
+        rb2d = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();        
+        rand_vec = new Vector3(sprite.transform.right.x + Random.Range(-bullet_dispersion, bullet_dispersion), 
+                    sprite.transform.right.y + Random.Range(-bullet_dispersion, bullet_dispersion), 0);
+        if(planeFlip)
+            isFliped = true;
+        else
+            isFliped = false;
+
+        Invoke("DestroyBullet", 2f);
+    }
+
+    public void DestroyBullet()
+    {
+        BulletPool.ReturnObject(this.gameObject);
     }
     private void FixedUpdate()
     {
@@ -47,7 +65,7 @@ public class Bullet : MonoBehaviour
     {
         if(other.tag == "Ground")
         {
-            Destroy(gameObject);
+            DestroyBullet();
         }
         else if(other.tag == "Plane")
         {
@@ -55,7 +73,7 @@ public class Bullet : MonoBehaviour
             {
                 PlaneControl plane = other.gameObject.GetComponent<PlaneControl>();
                 plane.Hited();
-                Destroy(gameObject);
+                DestroyBullet();
             }                
         }
     }

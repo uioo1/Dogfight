@@ -37,7 +37,7 @@ public class PlaneControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.x <= -10f || transform.position.y >= 5.5f)
+        if(transform.position.x <= -10f || transform.position.y >= 5.8f)
         {
             if(isNotSeen == false)
             {
@@ -62,6 +62,11 @@ public class PlaneControl : MonoBehaviour
 
         horizon_input = Input.GetAxis("Horizontal");
         if(Input.GetButton("Fire1") && !waitShoot)
+        {
+            waitShoot = true;
+            Shooting();
+        }
+        else if(Input.GetAxisRaw("right trigger") != 0 && !waitShoot)
         {
             waitShoot = true;
             Shooting();
@@ -122,19 +127,14 @@ public class PlaneControl : MonoBehaviour
 
     void Shooting()
     {
-        GameObject bullet;
         Bullet bulletScript;
-        if(!isFliped)
-        {
-            bullet = Instantiate(bullet_prefab, gunPoint.transform.position, gunPoint.transform.rotation, gameObject.transform.parent);
-            bulletScript = bullet.GetComponent<Bullet>();
-        }
-        else
-        {
-            bullet = Instantiate(bullet_prefab, gunPoint.transform.position, gunPoint.transform.rotation, gameObject.transform.parent);
-            bulletScript = bullet.GetComponent<Bullet>();
-            bulletScript.isFliped = true;
-        }
+        var bullet = BulletPool.GetBullet();        
+        bullet.transform.position = gunPoint.transform.position;
+        bullet.transform.rotation = gunPoint.transform.rotation;
+        bulletScript = bullet.GetComponent<Bullet>();
+        bulletScript.OnCreated(isFliped);        
+        bulletScript.parentPlane = this.gameObject;
+
         int i = Random.Range(0,3);
         if(i == 0)
             audioManager.Play("gun1_01");
@@ -142,7 +142,7 @@ public class PlaneControl : MonoBehaviour
             audioManager.Play("gun1_02");
         else
             audioManager.Play("gun1_03");
-        bulletScript.parentPlane = this.gameObject;
+        
         StartCoroutine(ShootCoroutine());
     }
 

@@ -598,7 +598,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curType: 4
-  buttonScale: {fileID: 621348201}
   mainGroup: {fileID: 0}
   optionGroup: {fileID: 0}
   multiplayGroup: {fileID: 0}
@@ -1500,7 +1499,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curType: 0
-  buttonScale: {fileID: 1101681835}
   mainGroup: {fileID: 1448933250}
   optionGroup: {fileID: 1673912598}
   multiplayGroup: {fileID: 717257069}
@@ -1727,7 +1725,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curType: 4
-  buttonScale: {fileID: 1480876604}
   mainGroup: {fileID: 1448933250}
   optionGroup: {fileID: 717257069}
   multiplayGroup: {fileID: 717257069}
@@ -2036,7 +2033,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curType: 3
-  buttonScale: {fileID: 1790337132}
   mainGroup: {fileID: 1448933250}
   optionGroup: {fileID: 717257069}
   multiplayGroup: {fileID: 717257069}
@@ -2216,7 +2212,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC0AC\uC6B4\uB4DC"
+  m_Text: "\uC0AC\uC6B4\uB4DC O"
 --- !u!222 &1378186124
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2430,7 +2426,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curType: 3
-  buttonScale: {fileID: 1790337132}
   mainGroup: {fileID: 1448933250}
   optionGroup: {fileID: 717257069}
   multiplayGroup: {fileID: 717257069}
@@ -2736,11 +2731,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ip: 59.17.44.84
   port: 9191
+  name: 
   inputName: {fileID: 1742613496}
-  inputNum: {fileID: 991883681}
-  inputData: {fileID: 770811372}
-  outputNum: {fileID: 0}
-  outputData: {fileID: 0}
+  inputChat: {fileID: 0}
+  inputRoomName: {fileID: 0}
+  inputRoomPass: {fileID: 0}
+  inputRoomPort: {fileID: 0}
+  inputPass: {fileID: 0}
 --- !u!1 &1607009910
 GameObject:
   m_ObjectHideFlags: 0
@@ -2952,7 +2949,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curType: 2
-  buttonScale: {fileID: 737958253}
   mainGroup: {fileID: 1448933250}
   optionGroup: {fileID: 1673912598}
   multiplayGroup: {fileID: 717257069}
@@ -3635,7 +3631,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curType: 1
-  buttonScale: {fileID: 291783793}
   mainGroup: {fileID: 1448933250}
   optionGroup: {fileID: 1673912598}
   multiplayGroup: {fileID: 717257069}
@@ -3786,7 +3781,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curType: 3
-  buttonScale: {fileID: 41359486}
   mainGroup: {fileID: 1448933250}
   optionGroup: {fileID: 1673912598}
   multiplayGroup: {fileID: 717257069}
