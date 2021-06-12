@@ -7,6 +7,7 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
+    public AudioSource bgm;
     // Start is called before the first frame update
     void Awake()
     {
@@ -17,13 +18,23 @@ public class AudioManager : MonoBehaviour
 
             s.source.volume = s.volume;
         }
+    }
 
+    void Update()
+    {
+        if(BtnType.isSound == false)
+        {
+            bgm.mute = true;
+        }
     }
 
     // Update is called once per frame
     public void Play(string name)
     {
-        Sound s = Array.Find(sounds, Sound => Sound.name == name);
-        s.source.PlayOneShot(s.source.clip);
+        if(BtnType.isSound == true)
+        {
+            Sound s = Array.Find(sounds, Sound => Sound.name == name);
+            s.source.PlayOneShot(s.source.clip);
+        }        
     }
 }

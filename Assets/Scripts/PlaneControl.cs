@@ -118,9 +118,19 @@ public class PlaneControl : MonoBehaviour
         }
         else if(planeHealth <= 0)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, 
+            if(isFliped)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, 
+                                        Quaternion.Euler(0, 0, 85f), 
+                                        Time.fixedDeltaTime);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, 
                                         Quaternion.Euler(0, 0, -85f), 
                                         Time.fixedDeltaTime);
+            }
+            
             rb2d.gravityScale = 1f;
         }
     }
