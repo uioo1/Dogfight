@@ -14,6 +14,7 @@ public class PlaneControl : MonoBehaviour
     public GameObject smoke_obj;
     public GameObject explode_child;
     public GameObject explode_prefab;
+    public GameManager gm;
     Smoke smoke;
 
     public int planeHealth;
@@ -37,7 +38,11 @@ public class PlaneControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.x <= -10f || transform.position.y >= 5.8f)
+        if(transform.localScale.x < 0)
+        {
+            isFliped = true;
+        }
+        if(transform.position.x <= -9.5f || transform.position.y >= 5.55f)
         {
             if(isNotSeen == false)
             {
@@ -46,7 +51,7 @@ public class PlaneControl : MonoBehaviour
             }
             isNotSeen = true;            
         }
-        else if(transform.position.x >= 10f)
+        else if(transform.position.x >= 9.5f)
         {
             if(isNotSeen == false)
             {
@@ -178,10 +183,17 @@ public class PlaneControl : MonoBehaviour
         }
         else if(other.tag == "Plane")
         {
+            /*
             GameObject explosion = Instantiate(explode_prefab, transform.position, Quaternion.identity);
             audioManager.Play("explosion_ground");
             Destroy(explosion, 3f);
             Destroy(gameObject);   
+            */
         }
+    }
+
+    void OnDestroy()
+    {
+        gm.RoundOver(gameObject);
     }
 }

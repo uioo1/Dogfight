@@ -17,11 +17,7 @@ public struct packet{
     public string data;
 }
 public class zzzClient : MonoBehaviour
-{
-    // Start is called before the first frame update
-
-
-    
+{  
     public string ip = "59.17.44.84";
     public int port;
     public string name;
@@ -35,6 +31,7 @@ public class zzzClient : MonoBehaviour
     Socket serv;
     byte[] buffer = new byte[1025];
     private postbox p; 
+    // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this);
