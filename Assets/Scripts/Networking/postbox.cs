@@ -5,6 +5,7 @@ using UnityEngine;
 public class postbox {
     //싱글턴 인스턴스
     private static postbox instance;
+    private static postbox udpInstance;
     //싱글턴 인스턴스 반환
     public static postbox GetInstance
     {
@@ -16,7 +17,16 @@ public class postbox {
             return instance;
         }
     }
+    public static postbox GetUdpInstance
+    {
+        get
+        {
+            if (udpInstance == null)
+                udpInstance = new postbox();
  
+            return udpInstance;
+        }
+    }
     //데이타를 담을 큐
     private Queue<packet>  messageQueue;
  

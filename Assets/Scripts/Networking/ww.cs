@@ -61,6 +61,9 @@ public class ww : MonoBehaviour
                 string[] a = d.data.Split('\\');
 
                 GameObject gameObject = Instantiate(label, content.transform);
+                gameObject.GetComponent<RoomLabel>().isLocked = int.Parse(a[1]);
+                gameObject.GetComponent<RoomLabel>().index = int.Parse(a[0]);
+
                 gameObject.GetComponent<RoomLabel>().indexText.text = a[0];
                 gameObject.GetComponent<RoomLabel>().lockText.text = a[1];
                 gameObject.GetComponent<RoomLabel>().nameText.text = a[2];
@@ -89,4 +92,7 @@ public class ww : MonoBehaviour
             yield return waitSec;
         }
     }
+
+
+    
 }

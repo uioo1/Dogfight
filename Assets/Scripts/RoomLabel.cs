@@ -13,10 +13,13 @@ public class RoomLabel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public Text lockText;
     public Text statusText;
     Vector3 defaultScale;
-    
+    public int index;
+    public int isLocked;
+    GameObject clientControl;
     void Start(){
         
         defaultScale = transform.localScale;
+        clientControl = GameObject.Find("ClientManager");
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -26,5 +29,8 @@ public class RoomLabel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerExit(PointerEventData eventData)
     {
         gameObject.transform.localScale = defaultScale;
+    }
+    public void clicked(){
+        clientControl.GetComponent<zzzClient>().accessRoom(index);
     }
 }
