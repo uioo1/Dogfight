@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Net;
 using System;
 using System.Runtime.InteropServices;
+using UnityEngine.SceneManagement;
 using System.Threading;
 
 
@@ -79,10 +80,15 @@ public class zzzClient : MonoBehaviour
         sendPacket((char)2, "");
     }
     public void makeRoom(){
-        zzzServer s = new zzzServer();
+        zzzServer s = gameObject.GetComponent<zzzServer>();
+        zzzUDPClient c = gameObject.GetComponent<zzzUDPClient>();
         s.startServer(inputRoomPort.text);
 
         string myip = new WebClient().DownloadString("http://ipinfo.io/ip").Trim();
+        c.ip = myip;
+        c.port = int.Parse(inputRoomPort.text);
+        c.openClient();
+        SceneManager.LoadScene("MainScene");
 
         string data = myip + "\\" + inputRoomPort.text + "\\" + inputRoomName.text + "\\" + inputRoomPass.text;
         sendPacket((char)3, data);
@@ -120,7 +126,6 @@ public class zzzClient : MonoBehaviour
         packet temp = new packet();
         temp.cmd = (char)buffer[0];
         temp.data = Encoding.Default.GetString(buffer, 1, 1024);
-        Debug.Log(size);
         p.PushData(temp);
         
         serv.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, getPacket, this);

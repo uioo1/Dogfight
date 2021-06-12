@@ -6,6 +6,7 @@ public class postbox {
     //싱글턴 인스턴스
     private static postbox instance;
     private static postbox udpInstance;
+    private static postbox udpClientInstance;
     //싱글턴 인스턴스 반환
     public static postbox GetInstance
     {
@@ -25,6 +26,17 @@ public class postbox {
                 udpInstance = new postbox();
  
             return udpInstance;
+        }
+    }
+
+    public static postbox GetudpClientInstance
+    {
+        get
+        {
+            if (udpClientInstance == null)
+                udpClientInstance = new postbox();
+ 
+            return udpClientInstance;
         }
     }
     //데이타를 담을 큐

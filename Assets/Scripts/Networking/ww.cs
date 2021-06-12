@@ -37,8 +37,6 @@ public class ww : MonoBehaviour
     }
     public void ResponseData(packet d)
     {
-        Debug.Log((int)d.cmd);
-        Debug.Log(d.data);
         switch ((int)d.cmd)
         {
             case CMD_SEND_CHAT :
@@ -54,7 +52,6 @@ public class ww : MonoBehaviour
                     }
                 }
                 outputChat.text += '\n';
-                Debug.Log(outputChat.text);
             break;
             
             case CMD_RECV_ROOM :
