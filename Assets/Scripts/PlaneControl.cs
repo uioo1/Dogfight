@@ -33,6 +33,8 @@ public class PlaneControl : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         smoke = smoke_obj.GetComponent<Smoke>();
+        audioManager = FindObjectOfType<AudioManager>();
+        gm = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -178,8 +180,10 @@ public class PlaneControl : MonoBehaviour
         {
             GameObject explosion = Instantiate(explode_prefab, transform.position, Quaternion.identity);
             audioManager.Play("explosion_ground");
-            Destroy(explosion, 3f);
-            Destroy(gameObject);
+            Destroy(explosion, 2f);
+            gameObject.SetActive(false);
+            PlaneDied();
+            //Destroy(gameObject);
         }
         else if(other.tag == "Plane")
         {
@@ -192,7 +196,7 @@ public class PlaneControl : MonoBehaviour
         }
     }
 
-    void OnDestroy()
+    void PlaneDied()
     {
         gm.RoundOver(gameObject);
     }

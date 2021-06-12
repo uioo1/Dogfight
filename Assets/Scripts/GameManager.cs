@@ -31,32 +31,16 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void SpawnPlayer1()
-    {
-        if(players[0] == null)
-            players[0] = Instantiate(player1_Prefab, new Vector3(-9f, Random.Range(-2.2f, 4.8f), 0), player1_Prefab.transform.rotation);
-    }
-
-    public void SpawnPlayer2()
-    {
-        if(players[1] == null)
-            players[1] = Instantiate(player2_Prefab, new Vector3(-9f, Random.Range(-2.2f, 4.8f), 0), player2_Prefab.transform.rotation);
-    }
-
     public void SpawnPlayers()
     {
         if(players[0] != null)
-        {
             players[0].transform.position = new Vector3(-9f, Random.Range(-2.2f, 4.8f), 0);
-        }
         else
-            SpawnPlayer1();
+            players[0] = Instantiate(player1_Prefab, new Vector3(-9f, Random.Range(-2.2f, 4.8f), 0), player1_Prefab.transform.rotation);
         if(players[1] != null)
-        {
             players[1].transform.position = new Vector3(9f, Random.Range(-2.2f, 4.8f), 0);
-        }
         else
-            SpawnPlayer2();
+            players[1] = Instantiate(player2_Prefab, new Vector3(9f, Random.Range(-2.2f, 4.8f), 0), player2_Prefab.transform.rotation);
     }
 
     public void RoundOver(GameObject lose_plane)
@@ -69,24 +53,32 @@ public class GameManager : MonoBehaviour
         {
             win_Rounds[0]++;
         }
+        Gameover_check();
+        lose_plane.SetActive(true);
+        SpawnPlayers();
     }
 
-    public bool Gameover_check()
+    public void Gameover_check()
     {
-        if(win_Rounds[0] == 5)
+        if(win_Rounds[0] >= 5)
         {
-
+            GameOver(players[0]);
         }
-        else if(win_Rounds[1] == 5)
+        else if(win_Rounds[1] >= 5)
         {
-
+            GameOver(players[1]);
         }
-
-        return false;
     }
 
-    public void GameOver()
+    public void GameOver(GameObject win_plane)
     {
-
+        if(win_plane == players[0])
+        {
+            // player1 WIN!
+        }
+        else if(win_plane == players[1])
+        {
+            // player2 WIN!
+        }
     }
 }
